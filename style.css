@@ -1,0 +1,243 @@
+    /* --- 1. Базові налаштування --- */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.5;
+        background-color: #f4f4f4;
+        /* Фіксуємо екран, щоб не було скролу */
+        height: 100vh; 
+        display: flex;
+        flex-direction: column; 
+        overflow: hidden; 
+    }
+
+    /* --- 2. Змінні кольорів --- */
+    :root {
+        --primary-blue: #0044cc;
+        --accent-orange: #ff9900;
+        --dark-footer: #333333;
+        --white: #ffffff;
+        --card-bg: rgba(255, 255, 255, 0.1);
+    }
+
+    /* --- 3. Header --- */
+    header {
+        background-color: var(--white);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* Фіксований відступ зліва/справа - 5% */
+        padding: 0 5%;
+        height: 70px;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 20; /* Хедер завжди зверху */
+    }
+
+    .logo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #d3d3d3;
+        text-transform: lowercase;
+    }
+
+    .menu-icon {
+        font-size: 32px;
+        cursor: pointer;
+        color: #000;
+    }
+
+    /* --- 4. Main Content --- */
+    main {
+        flex: 1; 
+        display: flex;
+        position: relative; /* Важливо для абсолютного позиціювання всередині */
+    }
+
+    .hero {
+        background-color: var(--primary-blue);
+        color: var(--white);
+        /* Відступи такі самі як у хедера - 5%, щоб все було по лінії */
+        padding: 0 5%; 
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Центруємо контент по вертикалі */
+        position: relative;
+    }
+
+    /* Блок заголовка */
+    .hero-top-text {
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 5; /* Текст під ноутбуком, але над фоном */
+        max-width: 50%; /* Обмежуємо ширину тексту, щоб він не ліз під ноутбук */
+    }
+
+    .hero-subtitle {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 14px;
+        opacity: 0.8;
+        margin-bottom: 10px;
+    }
+
+    .hero-title {
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+
+    /* Контейнер для карток (тепер без flex-row для ноутбука) */
+    .content-wrapper {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    /* --- Картки --- */
+    .cards-container {
+        display: flex;
+        gap: 20px;
+        /* Ширина карток - рівно половина екрану або трохи менше */
+        width: 45%; 
+        position: relative;
+        z-index: 2; /* Картки знизу */
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        padding: 25px 20px;
+        border-radius: 4px;
+        text-align: center;
+        flex: 1; 
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-icon {
+        height: 50px;
+        width: auto;
+        margin-bottom: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        filter: invert(1) brightness(2); 
+    }
+
+    .card h3 {
+        color: var(--accent-orange);
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .card p {
+        font-size: 13px;
+        margin-bottom: 15px;
+        opacity: 0.9;
+        line-height: 1.3;
+        flex: 1;
+    }
+
+    .more-link {
+        color: var(--accent-orange);
+        text-decoration: underline;
+        font-weight: bold;
+        font-size: 14px;
+        text-transform: lowercase;
+    }
+
+    /* --- НОУТБУК (Абсолютне позиціювання) --- */
+    /* Це головна зміна! */
+/* --- НОУТБУК (Компактний і ближче до тексту) --- */
+    .laptop-image {
+        position: absolute; 
+        
+        /* РУХ ВЛІВО: Збільшуємо відступ від правого краю */
+        /* Чим більше число, тим лівіше він поїде */
+        right: 15%; 
+        
+        /* ЦЕНТРУВАННЯ ПО ВЕРТИКАЛІ */
+        top: 20%; 
+        
+        /* РОЗМІР: Зменшуємо, щоб був акуратним */
+        width: 40%; 
+        max-width: 600px;
+        
+        /* Позиція і нахил */
+        /* translateY(-50%) центрує його ідеально по середині висоти */
+        transform: translateY(-50%) rotate(30deg); 
+        
+        z-index: 10; 
+        pointer-events: none; 
+    }
+
+    .laptop-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: drop-shadow(15px 15px 30px rgba(0,0,0,0.4));
+    }
+
+    /* --- Footer --- */
+    footer {
+        background-color: var(--dark-footer);
+        color: var(--white);
+        text-align: center;
+        padding: 15px 20px;
+        font-size: 12px;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 20;
+    }
+
+    /* --- Mobile --- */
+    @media (max-width: 992px) {
+        body {
+             height: auto; 
+             overflow: auto; 
+        }
+        
+        .hero {
+            padding: 40px 5%;
+            text-align: center;
+            display: block; /* Скидаємо flex layout */
+        }
+
+        .hero-top-text {
+            max-width: 100%; /* Текст на всю ширину */
+            margin-bottom: 30px;
+        }
+
+        /* На мобільному повертаємо ноутбук в потік */
+        .laptop-image {
+            position: relative; 
+            width: 100%;
+            right: auto;
+            top: auto;
+            transform: none;
+            margin-bottom: 30px;
+            pointer-events: auto;
+        }
+        
+        .laptop-image img {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .cards-container {
+            width: 100%;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        footer {
+            padding: 30px 20px;
+        }
+    }
